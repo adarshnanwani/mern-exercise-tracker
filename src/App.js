@@ -6,12 +6,14 @@ import CreateExercise from "./components/create-exercise.component";
 import EditExercise from "./components/edit-exercise.component";
 import ExerciseList from "./components/exercises-list.component";
 import CreateUser from "./components/create-user.component";
-
+import { UserProvider } from "./contexts/users.context";
 function App() {
   return (
     <BrowserRouter>
       <div className="container">
-        <Navbar />
+        <UserProvider>
+          <Navbar />
+        </UserProvider>
         <br />
         <Switch>
           <Route path="/" render={() => <ExerciseList />} exact />
