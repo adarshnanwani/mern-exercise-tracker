@@ -1,5 +1,5 @@
 import React from "react";
-import useInputState from "../hooks/useInputState.hooks";
+import useInputState from "../hooks/useInputState.hook";
 
 const CreateUser = () => {
   const [username, setUsername, resetUsername] = useInputState();
