@@ -5,7 +5,7 @@ export const UserContext = createContext();
 export const UserDispatchContext = createContext();
 
 export const UserProvider = props => {
-  const [users, dispatch] = useReducer(userReducer, []);
+  const [users, dispatch] = useReducer(userReducer, { users: [] });
   const dispatchMiddleware = reducerMiddleware(dispatch);
 
   // Below code is needed because users don't

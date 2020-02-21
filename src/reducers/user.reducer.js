@@ -30,7 +30,7 @@ export function reducerMiddleware(dispatch) {
 function reducer(state, action) {
   switch (action.type) {
     case "GET_ALL_USERS":
-      return [...state, ...action.users];
+      return { users: [...action.users] };
     case "ADD_NEW_USER":
       return state;
     default:
