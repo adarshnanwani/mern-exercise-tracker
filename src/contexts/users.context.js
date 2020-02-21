@@ -1,24 +1,22 @@
 import React, { createContext, useReducer, useEffect } from "react";
-import userReducer from "../reducers/user.reducer";
-import useApiRequest from "../hooks/useApiRequest.hook";
+import userReducer, { reducerMiddleware } from "../reducers/user.reducer";
+
 export const UserContext = createContext();
 export const UserDispatchContext = createContext();
 
 export const UserProvider = props => {
-  const [{ status, response }, makeRequest] = useApiRequest(
-    "http://localhost:5000/users",
-    {
-      verb: "get"
-    }
-  );
+  const [users, dispatch] = useReducer(userReducer, []);
+  const dispatchMiddleware = reducerMiddleware(dispatch);
 
+  // Below code is needed because users don't
+  // load when I refresh the Create New Exercise Log page
   useEffect(() => {
-    makeRequest();
+    dispatchMiddleware({ type: "GET_ALL_USERS" });
   }, []);
 
   return (
-    <UserContext.Provider value={response}>
-      <UserDispatchContext.Provider>
+    <UserContext.Provider value={users}>
+      <UserDispatchContext.Provider value={dispatchMiddleware}>
         {props.children}
       </UserDispatchContext.Provider>
     </UserContext.Provider>
